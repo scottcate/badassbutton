@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BadAss Button</title>
+    <base href="/" />
+    <link href="css/site.css" rel="stylesheet" />
+    <script type="blazor-boot">
+    </script>
+    <script>
+        var playing = false;
+        
+        Blazor.registerFunction('Say', function (index) {
+            if (playing) {
+                return false;
+            }
+            playing = true;
+
+            var clickBox = document.getElementById("cb");
+            clickBox.className = "clickBox no";
+
+            var fileName = 'media/' + index + '.mp3';
+            var audio = new Audio(fileName);
+            audio.onended = function () {
+                clickBox.className = "clickBox";
+                playing = false;
+            };
+            audio.play();
+            return true;
+        });
+    </script>
+</head>
+
+<body>
+    <app>
+        <div class="loading">Loading Audio ...</div>
+    </app>
+</body>
+
+</html>

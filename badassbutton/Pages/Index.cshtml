@@ -1,0 +1,20 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Blazor.Browser.Interop
+
+<div id="cb" class="clickBox" onclick=@Speak>&nbsp;</div>
+
+@functions {
+    private int CurrentPlay { get; set; } = 0;
+    private void Speak()
+    {
+        if (!RegisteredFunction.Invoke<bool>("Say", CurrentPlay.ToString()))
+            return;
+
+        //if play goto next audio
+        CurrentPlay += 1;
+        if (CurrentPlay > 4)
+            CurrentPlay = 0;
+
+    }
+
+}
